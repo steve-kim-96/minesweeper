@@ -1,7 +1,28 @@
+  
 document.addEventListener('DOMContentLoaded', startGame)
 
-// Define your `board` object here!
 var board = {
+  cells: []
+};
+
+function randomBoard(){
+  size = Math.floor((Math.random() * (7-3)) + 3);
+
+  for (row = 0; row < size; row ++){
+    for(col = 0; col < size; col ++){
+      board.cells.push({row: row, col: col, isMine: false, isMarked: false, hidden: true})
+    }
+  }
+
+
+  for (makeMine = 0; makeMine < size; makeMine ++){
+    board.cells[Math.floor((Math.random() * (size * size)))].isMine = true;
+
+      }
+    }
+
+// Define your `board` object here!
+/*var board = {
   cells: [
     { row: 0, col: 0, isMarked: false, isMine: true, hidden: true },
     { row: 0, col: 1, isMarked: false, isMine: false, hidden: true },
@@ -20,12 +41,12 @@ var board = {
     { row: 3, col: 2, isMarked: false, isMine: false, hidden: true },
     { row: 3, col: 3, isMarked: false, isMine: true, hidden: true },
   ],
-};
+};*/
 
 function startGame() {
   document.addEventListener("click", checkForWin);
   document.addEventListener("contextmenu", checkForWin);
-
+  randomBoard();
   board.cells.forEach(
     cell => cell.surroundingMines = countSurroundingMines(cell)
   );
@@ -69,4 +90,7 @@ function countSurroundingMines(cell) {
   return count;
 }
 
-
+//function to randomly generate board:
+//board is an object with property CELLS which is an array of objects
+//arguments will need to be cell, row, col, isMine and hidden
+//if I want to randomise the mines, I can use Math.random and assign certain cells
